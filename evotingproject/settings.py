@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#2jv6=@!xcd8vf7_lyp-!5c=ndnv!1+-s)rj#ef#7cpsrl*^p@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['boorish-button-production.up.railway.app','localhost']
+ALLOWED_HOSTS = ['boorish-button-production.up.railway.app','localhost','ccs-evotingsystem.com']
 
 
 # Application definition
