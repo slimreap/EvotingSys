@@ -1,0 +1,131 @@
+{% extends 'admin/base_admin.html' %} {% block content %} {% load static %}
+<div class="container">
+  <main>
+    <div class="row">
+      <div class="col-12">
+        <h1 class="display-5 txt-green" id="myprofile-heading">
+          Admin Profile
+        </h1>
+        {% if messages %}
+            {% for message in messages %}
+            {% if message.tags %}{% endif %}
+            <span class="rounded-pill bg-greenn px-3 py-1" id="successful">
+              {{ message }}
+              <span id="check" class="rounded-pill">✓</span>
+            </span>
+          
+            {% endfor %}
+   
+        {% endif %}
+
+      </div>
+    </div>
+    <div>
+
+      <div class="row anim-to-top">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+          <img
+          src="{% if userprf.User_Img %}        
+          {{ userprf.User_Img.url }}    
+          {% else %} 
+          {% static '../static/imgs/jisoo.jpg' %}
+          {% endif %}"
+          alt="User photo"
+          style="
+            width: 10rem;
+            height: 10rem;
+            border: #555 10px double;
+            object-fit: cover;
+          "
+          class="rounded-circle"
+        />
+      </div>
+ 
+    
+    <div class="row ">
+      <div class="col-12">
+        <form
+          class="text-start px-5 d-flex flex-column justify-content-between align-items-center mb-4"
+          id="user-profile-form" method="POST" enctype="multipart/form-data"
+          >
+          {% csrf_token %}
+
+        <div class="col-12 d-flex justify-content-center align-items-center mt-3">
+          <label
+            for="profilephoto"
+            style="
+              background: rgb(211, 213, 212);
+              color: #555;
+              padding: 0.5rem 1rem;
+              cursor: pointer;
+              "
+            class="rounded"
+            >Choose your profile photo</label
+            ><br />
+          <input
+            type="file"
+            class="user-photo-inp"
+            name="User_Img"
+            id="profilephoto"
+            value=""
+            accept="image/*"
+            required
+            />
+          </div>
+          
+          <div class="user-name">
+            <input
+              type="text"
+              name="first_name"
+              id="username"
+              value="{{userprf.first_name}}"
+              class="text-center"
+              readonly
+              />
+          </div>
+          <div class="user-email text-center mt-4">
+            <input
+              type="email"
+              name="useremail"
+              id="useremail"
+              value="{{userprf.email}}"
+              class="text-center"
+              readonly
+              style="margin-bottom: 0rem;"
+            /><br />
+            <label for="useremail" style="margin-top:-2rem;">WMSU Email</label>
+          </div>
+
+          <p class="mt-4" style="margin-bottom: -0.4rem">
+            <a
+              href="{% url 'accounts:changepad' %}"
+              class="changepass"
+              style="font-weight: bold"
+              ><i>Change Password</i></a
+            >
+          </p>
+
+          <div
+          id="btn-profile-edit"
+            class="btn bg-greenn text-decoration-none px-5 py-2 mt-3 rounded-pill"
+            style="font-weight: 700"
+          >
+            EDIT
+          </div>
+          <button type="submit"
+            id="btn-profile-save"
+            class="btn bg-greenn text-decoration-none px-5 py-2 mt-3 rounded-pill hidden"
+            style="font-weight: 700"
+          >
+            SAVE
+          </button>
+        </form>
+      </div>
+    </div>
+    </div>
+  </main>
+</div>
+</div>
+<script src="{% static 'js/adminprf.js' %}"></script>
+
+{% endblock %}

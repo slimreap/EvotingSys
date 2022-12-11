@@ -1,0 +1,456 @@
+{% extends 'admin/base_admin.html' %} {% block content %} {% load static %}
+<main class="my-4">
+  <div class="container">
+    <h1 class="text-center txt-green mb-4 display-4" style="font-weight: bold">
+      ADMIN DASHBOARD
+    </h1>
+
+    {% load static %}
+
+
+    <form method="POST" enctype='multipart/form-data' action="">
+      {% csrf_token %}
+      <div id="uploaded-partylist" class="d-flex flex-wrap justify-content-center gap-3 box uploaded-partylist">
+        {{form1.management_form}}
+        {{form2.management_form}}
+        <div class="rounded-3" style="background: rgb(55, 74, 70)">
+          <a onclick="openModal(this)" href="#" class="card px-3 pt-3">
+            <div>{{party.partylist_name}}</div>
+          </a>
+          <span class=".options d-flex justify-content-center mt-2 pb-3" style="gap: 5px">
+
+            <img onclick="deleteData(this)" src="{% static '../static/imgs/bin.png' %}"
+              style="width: 30px; cursor: pointer" />
+          </span>
+        </div>
+
+        <div class="cands-modal hidden">
+          <button onclick="closeModal(this)" class="cands-close-modal">
+            &times;
+          </button>
+          <!-- Partylist -->
+          <section class="my-3 mt-5 pb-3">
+            <input type="text" name="partylist_name" value="{{party.partylist_name}}" style="text-transform: uppercase"
+              class="display-6 text-center mb-4 text-white input" />
+
+
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+              <!-- mayor -->
+              {% for candid in cand %}
+              {% if candid.position_id == 1 %}
+              <section class="d-flex align-items-center border-radius info-box my-1 gap-2 pt-2">
+                <div class="d-flex flex-column align-items-center candidate" style="margin-left: 55px">
+                  <img class="user-img rounded-circle mb-1"
+                    src="{% if candid.Candidate_Img %}{{candid.Candidate_Img.url }}{% else %}{% static "
+                    ../static/imgs/user.png" %}{% endif %}" />
+                  <div>
+                    <label for="uploadphoto21" style="
+                      background: transparent;
+                      color: rgb(199, 237, 205);
+                      padding: 0.5rem 1rem;
+                      cursor: pointer;
+                      font-size: 1rem;
+                    " class="rounded">Upload photo</label><br />
+                    <input type="file" class="user-photo-inp" name="candidate-0-Candidate_Img" id="uploadphoto21"
+                      value="" accept="image/*" />
+                  </div>
+                </div>
+                <div class="text-start">
+                  <div>
+                    <h5 class="m-0" style="font-weight: bold">Mayor</h5>
+                    <input type="text" name="candidate-0-name" value="{{candid.name}}" class="input m-0 text-light font-des"
+                      placeholder="____________________  🖊️" />
+                  </div>
+
+                  <br />
+                  {% for plat1 in plat %}
+
+                  {% if candid.platform_id == plat1.id %}
+                  <div>
+                    <p class="m-0" style="font-size: 1.2rem">Platforms:</p>
+                    <ul>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform}}"
+                          name="platform-0-platform" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform2}}"
+                          name="platform-0-platform2" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform3}}"
+                          name="platform-0-platform3" placeholder="_________________________🖊️" />
+                      </li>
+                    </ul>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </section>
+              {% endif %}
+              {% endfor %}
+              <!-- vice mayor -->
+              {% for candid in cand %}
+              {% if candid.position_id == 2 %}
+
+              <section class="d-flex align-items-center border-radius info-box my-1 gap-3 pt-2">
+                <div class="d-flex flex-column align-items-center candidate" style="margin-left: 55px">
+                  <img class="user-img rounded-circle mb-1"
+                    src="{% if candid.Candidate_Img %}{{candid.Candidate_Img.url }}{% else %}{% static "
+                    ../static/imgs/user.png" %}{% endif %}" />
+                  <div>
+                    <label for="uploadphoto1" style="
+                      background: transparent;
+                      color: rgb(199, 237, 205);
+                      padding: 0.5rem 1rem;
+                      cursor: pointer;
+                      font-size: 1rem;
+                    " class="rounded">Upload photo</label><br />
+                    <input type="file" class="user-photo-inp" name="candidate-1-Candidate_Img" id="uploadphoto1"
+                      value="" accept="image/*" />
+                  </div>
+                </div>
+                <div class="text-start">
+                  <div>
+                    <h5 class="m-0" style="font-weight: bold">
+                      Vice Mayor
+                    </h5>
+                    <input type="text" name="candidate-1-name" value="{{candid.name}}" class="input m-0 font-des"
+                      placeholder="____________________🖊️" />
+                  </div>
+                  <br />
+                  {% for plat1 in plat %}
+
+                  {% if candid.platform_id == plat1.id %}
+                  <div>
+                    <p class="m-0" style="font-size: 1.2rem">Platforms:</p>
+                    <ul>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform}}"
+                          name="platform-1-platform" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform2}}"
+                          name="platform-1-platform2" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform3}}"
+                          name="platform-1-platform3" placeholder="_________________________🖊️" />
+                      </li>
+                    </ul>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </section>
+              {% endif %}
+              {% endfor %}
+              <!-- senator -->
+              {% for candid in cand %}
+              {% if candid.position_id == 3 %}
+              <section class="d-flex align-items-center border-radius info-box my-1 gap-3 pt-2">
+                <div class="d-flex flex-column align-items-center candidate" style="margin-left: 55px">
+                  <img class="user-img rounded-circle mb-1"
+                    src="{% if candid.Candidate_Img %}{{candid.Candidate_Img.url }}{% else %}{% static "
+                    ../static/imgs/user.png" %}{% endif %}" />
+                  <div>
+                    <label for="uploadphoto23" style="
+                      background: transparent;
+                      color: rgb(199, 237, 205);
+                      padding: 0.5rem 1rem;
+                      cursor: pointer;
+                      font-size: 1rem;
+                    " class="rounded">Upload photo</label><br />
+                    <input type="file" class="user-photo-inp" name="candidate-2-Candidate_Img" id="uploadphoto23"
+                      value="" accept="image/*" />
+                  </div>
+                </div>
+                <div class="text-start">
+                  <div>
+                    <h5 class="m-0" style="font-weight: bold">Senator</h5>
+                    <input type="text" class="input m-0 font-des" value="{{candid.name}}" name="candidate-2-name"
+                      placeholder="____________________🖊️" />
+                  </div>
+                  <br />
+                  {% for plat1 in plat %}
+
+                  {% if candid.platform_id == plat1.id %}
+                  <div>
+                    <p class="m-0" style="font-size: 1.2rem">Platforms:</p>
+                    <ul>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform}}"
+                          name="platform-2-platform" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform2}}"
+                          name="platform-2-platform2" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" name="platform-2-platform3"
+                          value="{{plat1.candidate_platform3}}" placeholder="_________________________🖊️" />
+                      </li>
+                    </ul>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </section>
+              {% endif %}
+              {% endfor %}
+              <!-- IT councilor -->
+              {% for candid in cand %}
+              {% if candid.position_id == 4 %}
+              <section class="d-flex align-items-center border-radius info-box my-1 gap-3 pt-2">
+                <div class="d-flex flex-column align-items-center candidate" style="margin-left: 55px">
+                  <img class="user-img rounded-circle mb-1"
+                    src="{% if candid.Candidate_Img %}{{candid.Candidate_Img.url }}{% else %}{% static "
+                    ../static/imgs/user.png" %}{% endif %}" />
+                  <div>
+                    <label for="uploadphoto3" style="
+                      background: transparent;
+                      color: rgb(199, 237, 205);
+                      padding: 0.5rem 1rem;
+                      cursor: pointer;
+                      font-size: 1rem;
+                    " class="rounded">Upload photo</label><br />
+                    <input type="file" class="user-photo-inp" name="candidate-3-Candidate_Img" id="uploadphoto3"
+                      value="" accept="image/*" />
+                  </div>
+                </div>
+                <div class="text-start">
+                  <div>
+                    <h5 class="m-0" style="font-weight: bold">
+                      Councilor #1
+                    </h5>
+                    <input type="text" class="input m-0 font-des" value="{{candid.name}}" name="candidate-3-name"
+                      placeholder="____________________🖊️" />
+                  </div>
+                  <br />
+                  {% for plat1 in plat %}
+
+                  {% if candid.platform_id == plat1.id %}
+                  <div>
+                    <p class="m-0" style="font-size: 1.2rem">Platforms:</p>
+                    <ul>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform}}"
+                          name="platform-3-platform" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform2}}"
+                          name="platform-3-platform2" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform3}}"
+                          name="platform-3-platform3" placeholder="_________________________🖊️" />
+                      </li>
+                    </ul>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </section>
+              {% endif %}
+              {% endfor %}
+              <!-- CS councilor -->
+              {% for candid in cand %}
+              {% if candid.position_id == 5 %}
+              <section class="d-flex align-items-center border-radius info-box my-1 gap-3 pt-2">
+                <div class="d-flex flex-column align-items-center candidate" style="margin-left: 55px">
+                  <img class="user-img rounded-circle mb-1"
+                    src="{% if candid.Candidate_Img %}{{candid.Candidate_Img.url }}{% else %}{% static "
+                    ../static/imgs/user.png" %}{% endif %}" />
+                  <div>
+                    <label for="uploadphoto4" style="
+                      background: transparent;
+                      color: rgb(199, 237, 205);
+                      padding: 0.5rem 1rem;
+                      cursor: pointer;
+                      font-size: 1rem;
+                    " class="rounded">Upload photo</label><br />
+                    <input type="file" class="user-photo-inp" name="candidate-4-Candidate_Img" id="uploadphoto4"
+                      value="" accept="image/*" />
+                  </div>
+                </div>
+                <div class="text-start">
+                  <div>
+                    <h5 class="m-0" style="font-weight: bold">
+                      Councilor #2
+                    </h5>
+                    <input type="text" class="input m-0 font-des" value="{{candid.name}}" name="candidate-4-name"
+                      placeholder="____________________🖊️" />
+                  </div>
+                  <br />
+                  {% for plat1 in plat %}
+
+                  {% if candid.platform_id == plat1.id %}
+                  <div>
+                    <p class="m-0" style="font-size: 1.2rem">Platforms:</p>
+                    <ul>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform}}"
+                          name="platform-4-platform" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" name="platform-4-platform2"
+                          value="{{plat1.candidate_platform2}}" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" name="platform-4-platform3"
+                          value="{{plat1.candidate_platform3}}" placeholder="_________________________🖊️" />
+                      </li>
+                    </ul>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </section>
+              {% endif %}
+              {% endfor %}
+
+              <!-- IT Councilor2 -->>
+              {% for candid in cand %}
+              {% if candid.position_id == 6 %}
+              <section class="d-flex align-items-center border-radius info-box my-1 gap-3 pt-2">
+                <div class="d-flex flex-column align-items-center candidate" style="margin-left: 55px">
+                  <img class="user-img rounded-circle mb-1"
+                    src="{% if candid.Candidate_Img %}{{candid.Candidate_Img.url }}{% else %}{% static "
+                    ../static/imgs/user.png" %}{% endif %}" />
+                  <div>
+                    <label for="uploadphoto5" style="
+                      background: transparent;
+                      color: rgb(199, 237, 205);
+                      padding: 0.5rem 1rem;
+                      cursor: pointer;
+                      font-size: 1rem;
+                    " class="rounded">Upload photo</label><br />
+                    <input type="file" class="user-photo-inp" name="candidate-5-Candidate_Img" id="uploadphoto5"
+                      value="" accept="image/*" />
+                  </div>
+                </div>
+                <div class="text-start">
+                  <div>
+                    <h5 class="m-0" style="font-weight: bold">
+                      Councilor #3
+                    </h5>
+                    <input type="text" class="input m-0 font-des" value="{{candid.name}}" name="candidate-5-name"
+                      placeholder="____________________🖊️" />
+                  </div>
+                  <br />
+                  {% for plat1 in plat %}
+
+                  {% if candid.platform_id == plat1.id %}
+                  <div>
+                    <p class="m-0" style="font-size: 1.2rem">Platforms:</p>
+                    <ul>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform}}"
+                          name="platform-5-platform" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform2}}"
+                          name="platform-5-platform2" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform3}}"
+                          name="platform-5-platform3" placeholder="_________________________🖊️" />
+                      </li>
+                    </ul>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </section>
+              {% endif %}
+              {% endfor %}
+
+              <!-- CS Councilor2 -->>
+              {% for candid in cand %}
+              {% if candid.position_id == 7 %}
+              <section class="d-flex align-items-center border-radius info-box my-1 gap-3 pt-2">
+                <div class="d-flex flex-column align-items-center candidate" style="margin-left: 55px">
+                  <img class="user-img rounded-circle mb-1"
+                    src="{% if candid.Candidate_Img %}{{candid.Candidate_Img.url }}{% else %}{% static "
+                    ../static/imgs/user.png" %}{% endif %}" />
+                  <div>
+                    <label for="uploadphoto6" style="
+                      background: transparent;
+                      color: rgb(199, 237, 205);
+                      padding: 0.5rem 1rem;
+                      cursor: pointer;
+                      font-size: 1rem;
+                    " class="rounded">Upload photo</label><br />
+                    <input type="file" class="user-photo-inp" name="candidate-6-Candidate_Img" id="uploadphoto6"
+                      value="" accept="image/*" />
+                  </div>
+                </div>
+                <div class="text-start">
+                  <div>
+                    <h5 class="m-0" style="font-weight: bold">
+                      Councilor #4
+                    </h5>
+                    <input type="text" class="input m-0 font-des" value="{{candid.name}}" name="candidate-6-name"
+                      placeholder="____________________🖊️" />
+                  </div>
+                  <br />
+                  {% for plat1 in plat %}
+
+                  {% if candid.platform_id == plat1.id %}
+                  <div>
+                    <p class="m-0" style="font-size: 1.2rem">Platforms:</p>
+                    <ul>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform}}"
+                          name="platform-6-platform" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" name="platform-6-platform2"
+                          value="{{plat1.candidate_platform2}}" placeholder="_________________________🖊️" />
+                      </li>
+                      <li>
+                        <input type="text" class="input text-white" value="{{plat1.candidate_platform3}}"
+                          name="platform-6-platform3" placeholder="_________________________🖊️" />
+                      </li>
+                    </ul>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </section>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <button class="btn-candidate-save btn bg-light text-decoration-none px-4 py-2 mt-5 rounded-pill"
+              style="font-weight: 700" type="submit">
+              SAVE
+            </button>
+          </section>
+    </form>
+  </div>
+
+  <script>
+    let openModal = (e) => {
+      const candsModal = document.querySelector(".cands-modal");
+      candsModal.classList.toggle("hidden");
+    };
+    let closeModal = (e) => {
+      const candsModal = document.querySelector(".cands-modal");
+      candsModal.classList.toggle("hidden");
+    };
+  </script>
+  </div>
+
+  <!-- <script>
+      let openModal = (e) => {
+        e.parentElement.nextElementSibling.classList.remove("hidden");
+      };
+      let closeModal = (e) => {
+        e.parentElement.classList.add("hidden");
+      };
+    </script> -->
+  </div>
+</main>
+<script src="{% static '/js/admindash.js' %}"></script>
+
+{% endblock %}

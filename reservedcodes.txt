@@ -1,0 +1,31 @@
+def updateparty(request,id):
+    counter1 = 0
+    counter2 = 1
+    part = PartyList.objects.get(id=id)
+    partylist = PartyList.objects.all()
+    form = UpdatePartylist()
+    if request.method == "POST":
+        form = UpdatePartylist(request.POST,request.FILES)
+        if form.is_valid():
+            partylist = form.cleaned_data["partylist_name"]
+            candidate = CandidateProfile.objects.filter(partylist=part).order_by('position')
+           
+            name = request.POST.getlist('name')
+            platformpost = request.POST.getlist('platform')
+            platformpost2 = request.POST.getlist('platform2')
+            platformpost3 = request.POST.getlist('platform3')
+            img = request.FILES.getlist('Candidate_Img')
+            print(img)
+            
+            for x,values in enumerate(candidate):
+
+                platid = values.platform_id
+                platform = Platform.objects.get(id=platid)
+                platform.candidate_platform = platformpost[x]
+                platform.candidate_platform2 = platformpost2[x]
+                platform.candidate_platform3 = platformpost3[x]
+                platform.save()
+                values.name = name[x]
+                values.Candidate_Img = img[x]
+                values.platform_id = platform
+                values.save()

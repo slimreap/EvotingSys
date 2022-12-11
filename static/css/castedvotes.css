@@ -1,0 +1,31 @@
+.border-radius {
+  border-radius: 25px;
+  width: 30rem;
+  max-width: 90%;
+}
+.box {
+  background: rgb(55, 77, 67);
+  color: #fff;
+  line-height: 1;
+}
+.plist {
+  opacity: 0.5;
+}
+.position,
+.cand-name {
+  text-transform: uppercase;
+}
+.cand-name {
+  /* letter-spacing: 2px; */
+  font-weight: bold;
+}
+.user-img {
+  width: 5.5rem;
+  height: 5.5rem;
+  border: #d5e9e0 7px double;
+  object-fit: cover;
+}
+.position {
+  font-size: 1rem;
+  font-weight: bold;
+}

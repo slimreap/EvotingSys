@@ -1,0 +1,31 @@
+{% extends 'base_voter.html' %} {% block content %} {% load static %}
+<main
+  class="container anim-to-top d-flex flex-column align-items-center justify-content-center"
+>
+  <h1 class="display-6 mb-3" style="font-weight: bold; color: rgb(80, 105, 94)">
+    CASTED VOTES
+  </h1>
+  <!-- mayor box -->
+  {% for votes in myls %}
+  
+  <section
+    id="mayorbox"
+    class="d-flex flex-md-row-reverse flex-column justify-content-around align-items-center gap-md-5 border-radius box py-3 my-1"
+  >
+    <div>
+      <img
+        class="user-img rounded-circle"
+        src="{% if votes.candidate.Candidate_Img %}{{ votes.candidate.Candidate_Img.url }}{% else %}{% static 'imgs/user.png' %}{% endif %}"
+        alt=""
+      />
+    </div>
+    <div class="text-md-start text-center text-lg-start">
+      <h5 class="mb-0 position">{% if votes.candidate.position_id == 1 %}Mayor{% elif votes.candidate.position_id == 2 %}Vice Mayor{% elif votes.candidate.position_id == 3 %}Senator{% elif votes.candidate.position_id == 4 or votes.candidate.position_id == 5 or votes.candidate.position_id == 6 or votes.candidate.position_id == 7 %}Councilor{% endif %}</h5>
+      <h3 class="m-0 cand-name">{{votes}}</h3>
+      <p class="m-0 plist" id="plistMayor"><i>{{votes.candidate.partylist}}</i></p>
+    </div>
+  </section>
+
+  {% endfor %}
+</main>
+{% endblock %}
