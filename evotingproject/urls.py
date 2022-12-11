@@ -24,8 +24,5 @@ urlpatterns = [
     path('', include('evotingproject.apps.public.urls')),
     path('evoting/', include('evotingproject.apps.evoting.urls')),
     path('accounts/', include('evotingproject.apps.accounts.urls')),
-] 
-
-urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static (settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
 
