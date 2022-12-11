@@ -135,7 +135,7 @@ LOGIN_URL_2 = "accounts:regvoterprf"
 LOGIN_REDIRECT_URL = "public:home"
 LOGOUT_REDIRECT_URL = "public:home"
 
-CSRF_TRUSTED_ORIGINS = ['https://boorish-button-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://boorish-button-production.up.railway.app']
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
