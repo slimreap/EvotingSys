@@ -23,9 +23,9 @@ PROJECT_DIR = os.path.join(BASE_DIR, "evotingproject")
 SECRET_KEY = 'django-insecure-#2jv6=@!xcd8vf7_lyp-!5c=ndnv!1+-s)rj#ef#7cpsrl*^p@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['boorish-button-production.up.railway.app']
 
 
 # Application definition
